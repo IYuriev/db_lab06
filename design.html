@@ -159,6 +159,138 @@
 <li>ER-модель</li>
 <li>реляційна схема</li>
 </ul>
+<h1 id="Модель-бізнес-обєктів"><a class="header" href="#Модель-бізнес-обєктів">Модель бізнес-об'єктів</a></h1>
+<p>@startuml entity User &lt;&gt; #88FFAE entity User.id &lt;&gt; #FFFFFF entity User.login &lt;&gt; #FFFFFF entity User.firstname &lt;&gt; #FFFFFF entity User.lastname &lt;&gt; #FFFFFF entity User.email &lt;&gt; #FFFFFF entity User.password &lt;&gt; #FFFFFF</p>
+<p>entity Role &lt;<ENTITY>&gt; #88FFAE
+entity Role.id &lt;<NUMBER>&gt; #FFFFFF
+entity Role.name &lt;<TEXT>&gt; #FFFFFF</p>
+<p>entity Permission &lt;<ENTITY>&gt; #88FFAE
+entity Permission.id &lt;<NUMBER>&gt; #FFFFFF
+entity Permission.name &lt;<TEXT>&gt; #FFFFFF</p>
+<p>entity Grant_Permission &lt;<ENTITY>&gt; #88FFAE</p>
+<p>entity Request &lt;<ENTITY>&gt; #88FFAE
+entity Request.id &lt;<NUMBER>&gt; #FFFFFF
+entity Request.type &lt;<NUMBER>&gt; #FFFFFF
+entity Request.message &lt;<TEXT>&gt; #FFFFFF</p>
+<p>entity Access &lt;<ENTITY>&gt; #88FFAE
+entity Access.id &lt;<NUMBER>&gt; #FFFFFF</p>
+<p>entity Datafile &lt;<ENTITY>&gt; #88FFAE
+entity Datafile.id &lt;<NUMBER>&gt; #FFFFFF
+entity Datafile.name &lt;<TEXT>&gt; #FFFFFF
+entity Datafile.content &lt;<TEXT>&gt; #FFFFFF
+entity Datafile.description &lt;<TEXT>&gt; #FFFFFF
+entity Datafile.format &lt;<TEXT>&gt; #FFFFFF
+entity Datafile.date &lt;<DATETIME>&gt; #FFFFFF</p>
+<p>entity Tag &lt;<ENTITY>&gt; #88FFAE
+entity Tag.id &lt;<NUMBER>&gt; #FFFFFF
+entity Tag.name &lt;<TEXT>&gt; #FFFFFF</p>
+<p>entity Datafile_tag &lt;<ENTITY>&gt; #88FFAE</p>
+<p>User *-u- User.id
+User *-u- User.login
+User *-u- User.firstname
+User *-u- User.lastname
+User *-u- User.email
+User *-u- User.password</p>
+<p>Role *-d- Role.id
+Role *-d- Role.name</p>
+<p>Permission *-u- Permission.id
+Permission *-u- Permission.name</p>
+<p>Request *-u- Request.id
+Request *-u- Request.type
+Request *-u- Request.message</p>
+<p>Access *-d- Access.id</p>
+<p>Datafile *-d-- Datafile.id
+Datafile *-d-- Datafile.name
+Datafile *-d-- Datafile.content
+Datafile *-d-- Datafile.date
+Datafile *-d-- Datafile.description
+Datafile *-d-- Datafile.format</p>
+<p>Tag *-u- Tag.id
+Tag *-r- Tag.name</p>
+<p>User "0,*"-d-"1,1" Role</p>
+<p>Permission "1,1"-r-"0,<em>" Grant_Permission
+Grant_Permission "0,</em>"-r-"1,1" Role</p>
+<p>User "1,1"-d-"0,*" Access</p>
+<p>User "1,1"-u-"0,*" Request</p>
+<p>Request "0,*"-r-"1,1" Access</p>
+<p>Access "0,*"-r-"1,1" Datafile</p>
+<p>Datafile "1,1"-r-"0,<em>" Datafile_tag
+Datafile_tag "0,</em>"-r-"1,1" Tag</p>
+<p>@enduml</p>
+<h1 id="er-модель"><a class="header" href="#er-модель">ER-модель</a></h1>
+<p>@startuml</p>
+<p>entity User  {</p>
+<ul>
+<li>id: UUID</li>
+<li>name: TEXT</li>
+<li>email: TEXT</li>
+<li>password: TEXT</li>
+<li>roleId: UUID
+}</li>
+</ul>
+<p>entity Role  {</p>
+<ul>
+<li>id: UUID</li>
+<li>name: TEXT
+}</li>
+</ul>
+<p>entity Datarecord  {</p>
+<ul>
+<li>id: UUID</li>
+<li>name: TEXT</li>
+<li>data: TEXT</li>
+<li>type: TEXT</li>
+<li>time: DATETIME</li>
+<li>description: TEXT
+}</li>
+</ul>
+<p>entity Access  {</p>
+<ul>
+<li>id: UUID</li>
+<li>userId: UUID</li>
+<li>datarecordId: UUID</li>
+<li>time: DATETIME</li>
+<li>type: TEXT
+}</li>
+</ul>
+<p>entity Tag  {</p>
+<ul>
+<li>id: UUID</li>
+<li>name: TEXT
+}</li>
+</ul>
+<p>entity Category  {</p>
+<ul>
+<li>id: UUID</li>
+<li>name: TEXT</li>
+<li>parentCategoryId: UUID
+}</li>
+</ul>
+<p>entity DatarecordTag  {</p>
+<ul>
+<li>id: UUID</li>
+<li>datarecordId: UUID</li>
+<li>tagId: UUID
+}</li>
+</ul>
+<p>entity DatarecordCategory  {</p>
+<ul>
+<li>id: UUID</li>
+<li>datarecordId: UUID</li>
+<li>categoryId: UUID
+}</li>
+</ul>
+<p>Role "1.1"-r-&gt;"0.<em>" User
+User "1.1"--&gt;"0.</em>" Access
+Access "0.<em>"--&gt;"1.1" Datarecord
+Tag "1.1"-d-&gt;"0.</em>" DatarecordTag
+DatarecordTag "0.<em>"-l-&gt;"1.1" Datarecord
+Category "1.1"-d-&gt;"0.</em>" DatarecordCategory
+DatarecordCategory "0.<em>"-r-&gt;"1.1" Datarecord
+Category "0.1"--&gt;"0.</em>" Category</p>
+<p>@enduml</p>
+<h1 id="Реляційна-схема"><a class="header" href="#Реляційна-схема">Реляційна схема</a></h1>
+<p><img src="https://github.com/user-attachments/assets/c164ab09-60de-48c0-b914-b12b7f82fcc0" alt="Diagram" /></p>
 
                     </main>
 
