@@ -1,8 +1,3 @@
-# Реалізація інформаційного та програмного забезпечення
-
-## SQL-скрипт для створення та початкового наповнення бази даних
-
-```sql
 USE my_database;
 
 SET FOREIGN_KEY_CHECKS = 0;
@@ -19,21 +14,21 @@ DROP TABLE IF EXISTS Tag;
 SET FOREIGN_KEY_CHECKS = 1;
 
 CREATE TABLE Role (
-    id CHAR(36) PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     name TEXT NOT NULL
 );
 
 CREATE TABLE User (
-    id CHAR(36) PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY, 
     name TEXT NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
     password TEXT NOT NULL,
-    roleId CHAR(36),
+    roleId INT, 
     FOREIGN KEY (roleId) REFERENCES Role(id) ON DELETE SET NULL
 );
 
 CREATE TABLE Datarecord (
-    id CHAR(36) PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     name TEXT NOT NULL,
     data TEXT NOT NULL,
     type TEXT NOT NULL,
@@ -41,44 +36,40 @@ CREATE TABLE Datarecord (
     description TEXT
 );
 
-CREATE TABLE  Access (
-    id CHAR(36) PRIMARY KEY,
-    userId CHAR(36),
-    datarecordId CHAR(36),
+CREATE TABLE Access (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    userId INT,
+    datarecordId INT,
     time TIMESTAMP NOT NULL,
     type TEXT NOT NULL,
     FOREIGN KEY (userId) REFERENCES User(id) ON DELETE CASCADE,
     FOREIGN KEY (datarecordId) REFERENCES Datarecord(id) ON DELETE CASCADE
 );
 
-CREATE TABLE  Tag (
-    id CHAR(36) PRIMARY KEY,
+CREATE TABLE Tag (
+    id INT AUTO_INCREMENT PRIMARY KEY,
     name TEXT NOT NULL
 );
 
 CREATE TABLE Category (
-    id CHAR(36) PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     name TEXT NOT NULL,
-    parentCategoryId CHAR(36),
+    parentCategoryId INT,
     FOREIGN KEY (parentCategoryId) REFERENCES Category(id) ON DELETE SET NULL
 );
 
 CREATE TABLE DatarecordTag (
-    id CHAR(36) PRIMARY KEY,
-    datarecordId CHAR(36),
-    tagId CHAR(36),
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    datarecordId INT,
+    tagId INT,
     FOREIGN KEY (datarecordId) REFERENCES Datarecord(id) ON DELETE CASCADE,
     FOREIGN KEY (tagId) REFERENCES Tag(id) ON DELETE CASCADE
 );
 
-CREATE TABLE  DatarecordCategory (
-    id CHAR(36) PRIMARY KEY,
-    datarecordId CHAR(36),
-    categoryId CHAR(36),
+CREATE TABLE DatarecordCategory (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    datarecordId INT,
+    categoryId INT,
     FOREIGN KEY (datarecordId) REFERENCES Datarecord(id) ON DELETE CASCADE,
     FOREIGN KEY (categoryId) REFERENCES Category(id) ON DELETE CASCADE
 );
-```
-
-## RESTfull сервіс для управління даними
-
