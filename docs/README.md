@@ -1,6 +1,6 @@
 # Виконав
 
-*студент 2-го курсу, групи ІМ-33*<span padding-right:5em></span> **Юрьєв Ілля [ilya.yuriev.s@gmail.com, [Telegram](https://t.me/ilya_yuriev)]**
+*студент 2-го курсу, групи ІМ-33*<span padding-right:5em></span> **Юрьєв Ілля [ilya.yuriev.s@gmail.com, [Telegram](https://t.me/ilya_yuriev)]** 
 
 # Керівник
 
